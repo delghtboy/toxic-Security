@@ -1,20 +1,15 @@
-# Use official Node.js image
-FROM node:18
+FROM node:18-alpine
 
-# Create app directory
 WORKDIR /app
 
-# Copy package files first (for better caching)
-COPY package.json package-lock.json ./
+# Copy package files
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy all project files
+# Copy bot files
 COPY . .
 
-# Expose (not required for Discord bots but safe to include)
-EXPOSE 3000
-
-# Start the bot
+# Run bot
 CMD ["node", "index.js"]
